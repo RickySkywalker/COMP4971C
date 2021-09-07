@@ -5,6 +5,10 @@ public class TradingStrategies {
 
     public static final double targetProfit = 1.05;
     public static final double stopLoss = 0.99;
+    public static final int oneHundredDayInMin = 60*24*100;
+    public static final int twentyDayInMin = 60*24*20;
+
+
 
     public static boolean hammerLineJudge(LinkedList<String> currTradeInLs){
         Trade curr = new Trade(currTradeInLs);
@@ -103,10 +107,6 @@ public class TradingStrategies {
         }
 
         System.out.println(currentUSD);
-
-
-
-
         System.out.println("Now we have: " + currentUSD);
         System.out.println("We have done: " + totalNumberOfTrades);
         System.out.println("We have win: " + totalWinTime);

@@ -13,15 +13,11 @@ public class CsvReader {
         try{
             br = new BufferedReader(new FileReader(filePath));
             while((line = br.readLine()) != null){
-
                 String[] thisLine = line.split(csvSplitBy);
-
                 LinkedList<String> toAdd = new LinkedList<>();
-
                 for (String curr : thisLine){
                     toAdd.addLast(curr);
                 }
-
                 toReturn.addFirst(toAdd);
             }
         } catch (FileNotFoundException e){
@@ -42,14 +38,39 @@ public class CsvReader {
     }
 
 
+    public static String[][] readCsvAsArray(String filePath){
+        LinkedList<LinkedList<String>> currFile = readCSV(filePath);
+        int sizeOfOuterArray = currFile.size();
+
+        String[][] toReturn = new String[sizeOfOuterArray][];
+        int i = 0;
+
+        while (!currFile.isEmpty()){
+            LinkedList<String> currLs = currFile.poll();
+            toReturn[i] = new String[currLs.size()];
+            for (int j = 0; j < currLs.size(); j++){
+                toReturn[i][j] = currLs.get(j);
+            }
+            i++;
+        }
+
+        return toReturn;
+
+    }
+
+
 
 
     public static void main(String[] args){
 
-        String filePath = "gemini_BTCUSD_2021_1min.csv";
-        LinkedList<LinkedList<String>> lsOf2021 = readCSV(filePath);
-        for (int i = 0; i < 20; i++){
-            System.out.println(lsOf2021.get(i));
+        String filePath = "gemini_BTCUSD_2020_1min.csv";
+        String[][] currFile = readCsvAsArray(filePath);
+
+        for (int i = 0; i < currFile.length; i++){
+            for (String curr : currFile[i]){
+                System.out.print(curr + "\t");
+            }
+            System.out.println();
         }
     }
 }
