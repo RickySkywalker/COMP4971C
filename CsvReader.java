@@ -38,8 +38,65 @@ public class CsvReader {
     }
 
 
+
+    public static LinkedList<LinkedList<String>> readCSVInReverseWay(String filePath){
+
+        LinkedList< LinkedList<String> > toReturn = new LinkedList<>();
+        BufferedReader br = null;
+        String line = "";
+        String csvSplitBy = ",";
+
+        try{
+            br = new BufferedReader(new FileReader(filePath));
+            while((line = br.readLine()) != null){
+                String[] thisLine = line.split(csvSplitBy);
+                LinkedList<String> toAdd = new LinkedList<>();
+                for (String curr : thisLine){
+                    toAdd.addLast(curr);
+                }
+                toReturn.addLast(toAdd);
+            }
+        } catch (FileNotFoundException e){
+            e.printStackTrace();
+        }catch (IOException e){
+            e.printStackTrace();
+        } finally {
+            if (br != null){
+                try {
+                    br.close();
+                } catch (IOException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return toReturn;
+    }
+
+
     public static String[][] readCsvAsArray(String filePath){
         LinkedList<LinkedList<String>> currFile = readCSV(filePath);
+        int sizeOfOuterArray = currFile.size();
+
+        String[][] toReturn = new String[sizeOfOuterArray][];
+        int i = 0;
+
+        while (!currFile.isEmpty()){
+            LinkedList<String> currLs = currFile.poll();
+            toReturn[i] = new String[currLs.size()];
+            for (int j = 0; j < currLs.size(); j++){
+                toReturn[i][j] = currLs.get(j);
+            }
+            i++;
+        }
+
+        return toReturn;
+
+    }
+
+
+    public static String[][] readCsvAsArrayInReverseWay(String filePath){
+        LinkedList<LinkedList<String>> currFile = readCSVInReverseWay(filePath);
         int sizeOfOuterArray = currFile.size();
 
         String[][] toReturn = new String[sizeOfOuterArray][];

@@ -13,12 +13,12 @@ public class MAAndBBLines {
 
         int indicator = 0;
 
-        LinkedList<LinkedList<String>> currYearTrade = CsvReader.readCSV("gemini_BTCUSD_2020_1min.csv");
+        String[][] currYearTrade = CsvReader.readCsvAsArray("BTC_Data/gemini_BTCUSD_2020_1min.csv");
 
 
-        for (LinkedList<String> currTradeLs : currYearTrade){
+        for (String[] currTradeLs : currYearTrade){
 
-            if (!currTradeLs.get(2).equals("BTCUSD")){
+            if (!currTradeLs[2].equals("BTCUSD")){
                 continue;
             }
 
@@ -36,8 +36,6 @@ public class MAAndBBLines {
                 indicator ++;
             }
         }
-
-
     }
 
 
@@ -47,7 +45,7 @@ public class MAAndBBLines {
 
         int indicator = 0;
 
-        LinkedList<LinkedList<String>> currYearTrade = CsvReader.readCSV("gemini_BTCUSD_2020_1min.csv");
+        LinkedList<LinkedList<String>> currYearTrade = CsvReader.readCSV("BTC_Data/gemini_BTCUSD_2020_1min.csv");
 
 
         for (LinkedList<String> currTradeLs : currYearTrade){
@@ -76,7 +74,7 @@ public class MAAndBBLines {
     public static void BBLines(){
         int indicator = 0;
 
-        LinkedList<LinkedList<String>> currYearTrade = CsvReader.readCSV("gemini_BTCUSD_2020_1min.csv");
+        LinkedList<LinkedList<String>> currYearTrade = CsvReader.readCSV("BTC_Data/gemini_BTCUSD_2020_1min.csv");
 
 
         for (LinkedList<String> currTradeLs : currYearTrade){
@@ -130,6 +128,6 @@ public class MAAndBBLines {
 
 
     public static void main(String[] args){
-        BBLines();
+        oneHundredMA();
     }
 }
